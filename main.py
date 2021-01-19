@@ -13,8 +13,17 @@ class pizzaOrder:
         self.address = ''
         self.phone = ''
 
-
-      #setter functions
+    def __str__(self):
+        return '''List of pizzas:{}
+                Cost of pizzas:{}
+                Total cost:{}
+                Order name:{}
+                Delivery:{}
+                Addresss:{}
+                Phone:{}
+                '''.format(self.list_of_pizzas,self.cost_of_pizzas,self.total_cost,self.order_name,
+                          self.delivery,self.address,self.phone)
+    #setter functions
     def set_list_of_pizzas(self, pizza_obj):
         self.list_of_pizzas.append(pizza_obj)
 
@@ -35,8 +44,6 @@ class pizzaOrder:
 
     def set_phone(self, x):
         self.phone = x
-
-
 
 #pizza class
 class pizza:
@@ -67,8 +74,8 @@ class pizza:
 #returns next state
 state_machine = {"start": {"hawaiian":"add_pizza","vegan":"add_pizza"},
                  "add_pizza": {"large":"change_size","medium":"change_size","small":"change_size"},
-                 "change_size": {"delivery":"delivery_type","pick-up":"delivery_type"},
-                 "delivery_type": {"alex":"add_name"},
+                 "change_size": {"delivery":"delivery_type","pickup":"delivery_type"},
+                 "delivery_type": {"name_val":"add_name"},
                  #we need to make the phone number dynamic
                  "add_name": {"phone_num":"add_phone"},
                  "add_phone": {"yes":"confirm_order"}
@@ -80,7 +87,7 @@ output_reel = {"start":"Welcome to the pizza ordering system. What pizza would y
                  "change_size":"Pick-up or delivery?" ,
                  "delivery_type": "Name?",
                  "add_name":"Phone number?" ,
-                 "add_phone":"Got your order for a large Hawaiian on regular crust. Is that okay?",
+                 "add_phone":"Got your order for a large Hawaiian on regular crust. Is that okay? (Y/N)",
                  "confirm_order":"Your order has been received. It will be delivered in 30 minutes or less and cost $20.00."
                 }
 
@@ -95,8 +102,13 @@ while currState != 'confirm_order':
     in_value = input().lower()
     
     #additional regex
-    if currState == 'add_phone':
+    if currState == 'add_name':
         in_value = re.sub('[^0-9]','',in_value)
+        order_x.set_phone(in_value)
+        in_value = 'phone_num'
+    elif currState == 'delivery_type':
+        order_x.set_order_name(in_value)
+        in_value = 'name_val'
     elif currState == 'change_size':
         in_value = re.sub('[^\w]','',in_value)
     
@@ -107,11 +119,11 @@ while currState != 'confirm_order':
             pizza_x.set_type_of_pizza(in_value)
         elif currState == 'change_size':
             pizza_x.set_size_of_pizza(in_value)
-        elif currState == 'add_name':
-            order_x.set_order_name(in_value)
 
         if currState == 'confirm_order':
             print(output_reel[currState])
             
     except:
         print("Sorry, I didn't get that")
+
+print(order_x)
