@@ -6,6 +6,7 @@ Q1
 
 TO IMPLEMENT:
 Q1-Q4
+-options for whitespace before text
 -add more grounding
 -cancel --> I implemented a basic cancel option but we could get better
 -repeat
