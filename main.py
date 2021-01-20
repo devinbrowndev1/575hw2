@@ -53,7 +53,7 @@ class pizza:
                                "large":{"thin":14, "regular":14, "deep":18, "gf":21}}}
     
     def __str__(self):
-        return '''Type:{} Size:{} Crust:{} Cost:{}'''.format(self.type_of_pizza,self.size_of_pizza,self.crust_of_pizza,self.cost_of_pizza)
+        return '''We added a {} {} pizza with {} crust. That will be ${}'''.format(self.size_of_pizza,self.type_of_pizza,self.crust_of_pizza,self.cost_of_pizza)
         
     def set_type_of_pizza(self,x):
         self.type_of_pizza = x
@@ -64,7 +64,7 @@ class pizza:
         
     def set_crust_of_pizza(self,x):
         self.crust_of_pizza = x
-        self.cost_of_pizza += self.prices[self.size_of_pizza][x]
+        self.cost_of_pizza += self.prices["size"][self.size_of_pizza][x]
         
         
         
@@ -73,7 +73,7 @@ class pizza:
 #returns next state
 state_machine = {"start": {"hawaiian":"add_pizza","vegan":"add_pizza"},
                  "add_pizza": {"large":"change_size","medium":"change_size","small":"change_size"},
-                 "change_size": {"thin":"delivery_type","deepdish":"delivery_type","gluten-free":"delivery_type"},
+                 "change_size": {"thin":"change_crust","deepdish":"change_crust","gluten-free":"change_crust"},
                  "change_crust": {"delivery":"delivery_type","pickup":"delivery_type"},
                  "delivery_type": {"name_val":"add_name"},
                  "add_name": {"phone_num":"add_phone"},
@@ -84,7 +84,7 @@ state_machine = {"start": {"hawaiian":"add_pizza","vegan":"add_pizza"},
 #this is for NLG
 output_reel = {"start":"Welcome to the pizza ordering system. What pizza would you like?",
                  "add_pizza":"What size? (small, medium, large)" ,
-                 "change_size":"Whay type of crust? (thin,deepdish,gluten-free)" ,
+                 "change_size":"What type of crust? (thin,deepdish,gluten-free)" ,
                  "change_crust":"Pick-up or delivery?" ,
                  "delivery_type": "Can I get a name for the order?",
                  "add_name":"Phone number?" ,
@@ -104,9 +104,12 @@ while currState != 'confirm_order':
         order_x.set_cost_of_pizzas()
         order_x.set_total_cost()
         print(order_x)
+
+    elif currState == 'change_crust':
+        print(pizza_x)
         
     print('CURR_STATE:{}'.format(currState),'\t','PizzaBot:',output_reel[currState])
-    in_value = input().lower()
+    in_value = input().lower().strip()
     
     if in_value == 'cancel':
         print('Thank you, goodbye!')
@@ -118,7 +121,7 @@ while currState != 'confirm_order':
         #this ensures proper phone format
         while len(in_value) != 10:
             print('Please enter a 10-digit phone number.')
-            in_value = input()
+            in_value = input().strip()
             in_value = re.sub('[^0-9]','',in_value) 
         order_x.set_phone(in_value)
         in_value = 'phone_num'
@@ -145,6 +148,9 @@ while currState != 'confirm_order':
         elif currState == 'change_size':
             pizza_x.set_size_of_pizza(in_value)
             order_x.add_pizza(pizza_x)
+        elif currState == 'change_crust':
+            print(in_value)
+            pizza_x.set_crust_of_pizza(in_value)
 
 
         if currState == 'confirm_order':
