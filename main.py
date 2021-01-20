@@ -14,13 +14,7 @@ class pizzaOrder:
         self.phone = ''
 
     def __str__(self):
-        return '''List of pizzas:{}
-                Cost of pizzas:{}
-                Total cost:{}
-                Order name:{}
-                Delivery:{}
-                Addresss:{}
-                Phone:{}
+        return '''List of pizzas:{}\nCost of pizzas:{}\nTotal cost:{}\nOrder name:{}\nDelivery:{}\nAddresss:{}\nPhone:{}\n
                 '''.format(self.list_of_pizzas,self.cost_of_pizzas,self.total_cost,self.order_name,
                           self.delivery,self.address,self.phone)
     #setter functions
@@ -44,7 +38,8 @@ class pizzaOrder:
 
     def set_phone(self, x):
         self.phone = x
-
+        
+        
 #pizza class
 class pizza:
     def __init__(self):
@@ -68,7 +63,9 @@ class pizza:
     def set_crust_of_pizza(self,x):
         self.crust_of_pizza = x
         self.cost_of_pizza += self.prices[self.size_of_pizza][x]
-
+        
+        
+        
 #key 1 = current state
 #key 2 = input_val
 #returns next state
@@ -76,20 +73,24 @@ state_machine = {"start": {"hawaiian":"add_pizza","vegan":"add_pizza"},
                  "add_pizza": {"large":"change_size","medium":"change_size","small":"change_size"},
                  "change_size": {"delivery":"delivery_type","pickup":"delivery_type"},
                  "delivery_type": {"name_val":"add_name"},
-                 #we need to make the phone number dynamic
                  "add_name": {"phone_num":"add_phone"},
-                 "add_phone": {"yes":"confirm_order"}
+                 "add_phone": {"yes_regex":"confirm_order","no_regex":"misunderstood_order"},
+                 
+                 #need to implement this
+                 "misunderstood_pizza":{"yes_regex":"confirm_order","no_regex":"misunderstood_order"}
                 }
 
 #this is for NLG
 output_reel = {"start":"Welcome to the pizza ordering system. What pizza would you like?",
                  "add_pizza":"What size? (small, medium, large)" ,
                  "change_size":"Pick-up or delivery?" ,
-                 "delivery_type": "Name?",
+                 "delivery_type": "Can I get a name for the order?",
                  "add_name":"Phone number?" ,
-                 "add_phone":"Got your order for a large Hawaiian on regular crust. Is that okay? (Y/N)",
-                 "confirm_order":"Your order has been received. It will be delivered in 30 minutes or less and cost $20.00."
+                 "add_phone":"Got your order. Is above okay? (Y/N)",
+                 "confirm_order":"Your order has been received. It will be delivered in 30 minutes or less and cost $20.00.",
+                 "misunderstood_pizza":"I'm sorry, here's what you asked for ___. Should we restart this pizza?"
                 }
+
 
 
 
@@ -98,19 +99,42 @@ pizza_x = pizza()
 
 currState = 'start'
 while currState != 'confirm_order':
-    print(output_reel[currState], 'CURR_STATE',currState)
+    
+    if currState == 'add_phone':
+        print('PizzaBot: Here is your order:')
+        print(order_x)
+        
+    print('CURR_STATE:{}'.format(currState),'\t','PizzaBot:',output_reel[currState])
     in_value = input().lower()
+    
+    if in_value == 'cancel':
+        print('Thank you, goodbye!')
+        break
     
     #additional regex
     if currState == 'add_name':
         in_value = re.sub('[^0-9]','',in_value)
+        #this ensures proper phone format
+        while len(in_value) != 10:
+            print('Please enter a 10-digit phone number.')
+            in_value = input()
+            in_value = re.sub('[^0-9]','',in_value) 
         order_x.set_phone(in_value)
         in_value = 'phone_num'
+        
     elif currState == 'delivery_type':
         order_x.set_order_name(in_value)
         in_value = 'name_val'
+        
     elif currState == 'change_size':
         in_value = re.sub('[^\w]','',in_value)
+        
+    elif currState == 'add_phone':
+        yes_or_no = in_value[0]
+        if yes_or_no == 'y':
+            in_value = 'yes_regex'
+        elif yes_or_no == 'n':
+            in_value = 'no_regex'
     
     #reset the state
     try:
@@ -125,5 +149,3 @@ while currState != 'confirm_order':
             
     except:
         print("Sorry, I didn't get that")
-
-print(order_x)
