@@ -38,7 +38,9 @@ class pizzaOrder:
 
     def set_phone(self, x):
         self.phone = x
-        
+
+    def confirm_order(self):
+        return "Got your order for a {} {} on {} crust. Is that right?".format(self.)
         
 #pizza class
 class pizza:
