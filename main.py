@@ -76,7 +76,8 @@ class pizza:
 state_machine = {"start": {"hawaiian":"add_pizza","vegan":"add_pizza"},
                  "add_pizza": {"large":"change_size","medium":"change_size","small":"change_size"},
                  "change_size": {"regular":"change_crust","thin":"change_crust","deepdish":"change_crust","gluten-free":"change_crust"},
-                 "change_crust": {"delivery":"delivery_type","pickup":"delivery_type"},
+                 "change_crust": {"delivery":"get_address","pickup":"delivery_type"},
+                 "get_address": {"address":"delivery_type"}
                  "delivery_type": {"name_val":"add_name"},
                  "add_name": {"phone_num":"add_phone"},
                  "add_phone": {"yes_regex":"confirm_order","no_regex":"misunderstood_pizza"},
@@ -133,6 +134,10 @@ while currState != 'confirm_order':
     elif currState == 'delivery_type':
         order_x.set_order_name(in_value)
         in_value = 'name_val'
+
+    elif currState == "get_address":
+        order_x.set_address(in_value)
+        in_value = "address"
 
     elif currState == 'change_crust':
         in_value = re.sub('[^\w]','',in_value)
