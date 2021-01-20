@@ -15,3 +15,4 @@ You should implement the NLG component as well; system responses should be natur
 
 TO IMPLEMENT:
 -edit distance to catch common typos (haiwaiian vs hawaiian)
+	nltk.edit_distance(mistake, word)
