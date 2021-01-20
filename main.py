@@ -115,6 +115,8 @@ while currState != 'confirm_order':
     #get input  
     print('CURR_STATE:{}'.format(currState),'\t','PizzaBot:',output_reel[currState])
     in_value = input().lower().strip()
+    if in_value == 'repeat':
+        continue
     
     #cancel order
     if in_value == 'cancel':
