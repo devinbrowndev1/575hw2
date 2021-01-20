@@ -18,7 +18,7 @@ class pizzaOrder:
                 '''.format(self.list_of_pizzas,self.cost_of_pizzas,self.total_cost,self.order_name,
                           self.delivery,self.address,self.phone)
     #setter functions
-    def set_list_of_pizzas(self, pizza_obj):
+    def add_pizza(self, pizza_obj):
         self.list_of_pizzas.append(pizza_obj)
 
     def set_cost_of_pizzas(self, cost):
