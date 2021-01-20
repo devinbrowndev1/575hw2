@@ -81,6 +81,7 @@ state_machine = {"start": {"hawaiian":"add_pizza","vegan":"add_pizza"},
                  "add_name": {"phone_num":"add_phone"},
                  "add_phone": {"yes_regex":"confirm_order","no_regex":"misunderstood_pizza"},
                  "misunderstood_pizza":{"yes_regex":"confirm_order","no_regex":"misunderstood_order"}
+                 "misunderstood_order":{"yes_regex":"start", "no_regex":"confirm_order"}
                 }
 
 #this is for NLG
