@@ -47,11 +47,13 @@ class pizza:
         self.size_of_pizza = ''
         self.crust_of_pizza = ''
         self.cost_of_pizza = 0
-
         self.prices = {"type":{"hawaiian": 6, "vegan": 8},
                        "size":{"small":{"thin":10, "regular":10, "deep":12, "gf":15}, 
                                "medium":{"thin":12, "regular":12, "deep":14, "gf":18}, 
                                "large":{"thin":14, "regular":14, "deep":18, "gf":21}}}
+    
+    def __str__(self):
+        return '''Type:{} Size:{} Crust:{} Cost:{}'''.format(self.type_of_pizza,self.size_of_pizza,self.crust_of_pizza,self.cost_of_pizza)
         
     def set_type_of_pizza(self,x):
         self.type_of_pizza = x
