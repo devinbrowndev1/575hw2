@@ -14,9 +14,11 @@ class pizzaOrder:
         self.phone = ''
 
     def __str__(self):
-        return '''List of pizzas:{}\nCost of pizzas:{}\nTotal cost:{}\nOrder name:{}\nDelivery:{}\nAddresss:{}\nPhone:{}\n
-                '''.format(self.list_of_pizzas,self.cost_of_pizzas,self.total_cost,self.order_name,
-                          self.delivery,self.address,self.phone)
+        pizz = self.list_of_pizzas[0]
+        return '''Got your order for a {} {} pizza on {} crust, which will cost ${}'''.format(pizz.type_of_pizza,
+                                                                                             pizz.size_of_pizza,
+                                                                                             pizz.crust_of_pizza,
+                                                                                             self.total_cost)
     #setter functions
     def add_pizza(self, pizza_obj):
         self.list_of_pizzas.append(pizza_obj)
