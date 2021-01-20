@@ -10,8 +10,8 @@ Q1-
 -add more grounding
 ----------------------------------------------------------------------------
 Q2-
--cancel --> I implemented a basic cancel option but we could get better
--repeat --> currPizza, currOrder
+CHECK-cancel --> I implemented a basic cancel option but we could get better
+CHECK-repeat --> currPizza, currOrder
 -start-over --> set currState to start
 --------------------------------------------------------------------------------------------------------------------
 -ordering a single specialty pizza (need to make this add all possible specialty pizzas to FST)
