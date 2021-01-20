@@ -100,7 +100,7 @@ while currState != 'confirm_order':
         print(order_x)
         
     print('CURR_STATE:{}'.format(currState),'\t','PizzaBot:',output_reel[currState])
-    in_value = input(prompt='User: ').lower()
+    in_value = input().lower()
     
     if in_value == 'cancel':
         print('Thank you, goodbye!')
@@ -112,7 +112,7 @@ while currState != 'confirm_order':
         #this ensures proper phone format
         while len(in_value) != 10:
             print('Please enter a 10-digit phone number.')
-            in_value = input(prompt='User: ')
+            in_value = input()
             in_value = re.sub('[^0-9]','',in_value) 
         order_x.set_phone(in_value)
         in_value = 'phone_num'
