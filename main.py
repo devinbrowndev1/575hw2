@@ -50,9 +50,9 @@ class pizza:
         self.crust_of_pizza = ''
         self.cost_of_pizza = 0
         self.prices = {"type":{"hawaiian": 6, "vegan": 8},
-                       "size":{"small":{"thin":10, "regular":10, "deep":12, "gf":15}, 
-                               "medium":{"thin":12, "regular":12, "deep":14, "gf":18}, 
-                               "large":{"thin":14, "regular":14, "deep":18, "gf":21}}}
+                       "size":{"small":{"thin":10, "regular":10, "deepdish":12, "gluten-free":15}, 
+                               "medium":{"thin":12, "regular":12, "deepdish":14, "gluten-free":18}, 
+                               "large":{"thin":14, "regular":14, "deepdish":18, "gluten-free":21}}}
     
     def __str__(self):
         return '''We added a {} {} pizza with {} crust. That will be ${}'''.format(self.size_of_pizza,self.type_of_pizza,self.crust_of_pizza,self.cost_of_pizza)
@@ -75,7 +75,7 @@ class pizza:
 #returns next state
 state_machine = {"start": {"hawaiian":"add_pizza","vegan":"add_pizza"},
                  "add_pizza": {"large":"change_size","medium":"change_size","small":"change_size"},
-                 "change_size": {"thin":"change_crust","deepdish":"change_crust","gluten-free":"change_crust"},
+                 "change_size": {"regular":"change_crust","thin":"change_crust","deepdish":"change_crust","gluten-free":"change_crust"},
                  "change_crust": {"delivery":"delivery_type","pickup":"delivery_type"},
                  "delivery_type": {"name_val":"add_name"},
                  "add_name": {"phone_num":"add_phone"},
@@ -84,14 +84,14 @@ state_machine = {"start": {"hawaiian":"add_pizza","vegan":"add_pizza"},
                 }
 
 #this is for NLG
-output_reel = {"start":"Welcome to the pizza ordering system. What pizza would you like? (To cancel",
+output_reel = {"start":"Welcome to the pizza ordering system.\nPizzaBot:To cancel at anytime type: cancel, To repeat order at anytime type: repeat\nPizzaBot:What specialty pizza would you like?",
                  "add_pizza":"What size? (small, medium, large)" ,
                  "change_size":"What type of crust? (thin,deepdish,gluten-free)" ,
                  "change_crust":"Pick-up or delivery?" ,
                  "delivery_type": "Can I get a name for the order?",
                  "add_name":"Phone number?" ,
                  "add_phone":"Got your order. Is above okay? (Y/N)",
-                 "confirm_order":"Your order has been received. It will be delivered in 30 minutes or less and cost $20.00.",
+                 "confirm_order":"Your order has been received. It will be delivered in 30 minutes or less.",
                  "misunderstood_pizza":"I'm sorry, here's what you asked for ___. Should we restart this pizza?"
                 }
 
@@ -133,7 +133,7 @@ while currState != 'confirm_order':
     elif currState == 'delivery_type':
         order_x.set_order_name(in_value)
         in_value = 'name_val'
-        
+
     elif currState == 'change_crust':
         in_value = re.sub('[^\w]','',in_value)
         
