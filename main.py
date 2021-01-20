@@ -80,12 +80,11 @@ state_machine = {"start": {"hawaiian":"add_pizza","vegan":"add_pizza"},
                  "delivery_type": {"name_val":"add_name"},
                  "add_name": {"phone_num":"add_phone"},
                  "add_phone": {"yes_regex":"confirm_order","no_regex":"misunderstood_pizza"},
-                 "misunderstood_pizza":{"yes_regex":"confirm_order","no_regex":"misunderstood_order"}
-                 "misunderstood_order":{"yes_regex":"start", "no_regex":"confirm_order"}
+                 "misunderstood_pizza":{"yes_regex":"start","no_regex":"confirm_order"},
                 }
 
 #this is for NLG
-output_reel = {"start":"Welcome to the pizza ordering system. What pizza would you like?",
+output_reel = {"start":"Welcome to the pizza ordering system. What pizza would you like? (To cancel",
                  "add_pizza":"What size? (small, medium, large)" ,
                  "change_size":"What type of crust? (thin,deepdish,gluten-free)" ,
                  "change_crust":"Pick-up or delivery?" ,
@@ -110,15 +109,17 @@ while currState != 'confirm_order':
 
     elif currState == 'change_crust':
         print(pizza_x)
-        
+    
+    #get input  
     print('CURR_STATE:{}'.format(currState),'\t','PizzaBot:',output_reel[currState])
     in_value = input().lower().strip()
     
+    #cancel order
     if in_value == 'cancel':
         print('Thank you, goodbye!')
         break
     
-    #additional regex
+    ######### additional regex #########
     if currState == 'add_name':
         in_value = re.sub('[^0-9]','',in_value)
         #this ensures proper phone format
@@ -133,17 +134,18 @@ while currState != 'confirm_order':
         order_x.set_order_name(in_value)
         in_value = 'name_val'
         
-    elif currState == 'change_size':
+    elif currState == 'change_crust':
         in_value = re.sub('[^\w]','',in_value)
         
-    elif currState == 'add_phone':
+    elif (currState == 'add_phone') or (currState == 'misunderstood_pizza'):
         yes_or_no = in_value[0]
         if yes_or_no == 'y':
             in_value = 'yes_regex'
         elif yes_or_no == 'n':
             in_value = 'no_regex'
+
     
-    #reset the state
+    ########## reset the state ##########
     try:
         currState = state_machine[currState][in_value]
         if currState == 'add_pizza':
@@ -152,7 +154,6 @@ while currState != 'confirm_order':
             pizza_x.set_size_of_pizza(in_value)
             order_x.add_pizza(pizza_x)
         elif currState == 'change_crust':
-            print(in_value)
             pizza_x.set_crust_of_pizza(in_value)
 
 
