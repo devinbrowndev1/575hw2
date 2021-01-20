@@ -21,7 +21,7 @@ class pizzaOrder:
     def add_pizza(self, pizza_obj):
         self.list_of_pizzas.append(pizza_obj)
 
-    def set_cost_of_pizzas(self, cost):
+    def set_cost_of_pizzas(self):
         self.cost_of_pizzas = [c.cost_of_pizza for c in self.list_of_pizzas]
 
     def set_total_cost(self):
@@ -74,7 +74,7 @@ state_machine = {"start": {"hawaiian":"add_pizza","vegan":"add_pizza"},
                  "change_size": {"delivery":"delivery_type","pickup":"delivery_type"},
                  "delivery_type": {"name_val":"add_name"},
                  "add_name": {"phone_num":"add_phone"},
-                 "add_phone": {"yes_regex":"confirm_order","no_regex":"misunderstood_order"},
+                 "add_phone": {"yes_regex":"confirm_order","no_regex":"misunderstood_pizza"},
                  "misunderstood_pizza":{"yes_regex":"confirm_order","no_regex":"misunderstood_order"}
                 }
 
@@ -97,6 +97,8 @@ while currState != 'confirm_order':
     
     if currState == 'add_phone':
         print('PizzaBot: Here is your order:')
+        order_x.set_cost_of_pizzas()
+        order_x.set_total_cost()
         print(order_x)
         
     print('CURR_STATE:{}'.format(currState),'\t','PizzaBot:',output_reel[currState])
@@ -138,6 +140,8 @@ while currState != 'confirm_order':
             pizza_x.set_type_of_pizza(in_value)
         elif currState == 'change_size':
             pizza_x.set_size_of_pizza(in_value)
+            order_x.add_pizza(pizza_x)
+
 
         if currState == 'confirm_order':
             print(output_reel[currState])
