@@ -75,8 +75,6 @@ state_machine = {"start": {"hawaiian":"add_pizza","vegan":"add_pizza"},
                  "delivery_type": {"name_val":"add_name"},
                  "add_name": {"phone_num":"add_phone"},
                  "add_phone": {"yes_regex":"confirm_order","no_regex":"misunderstood_order"},
-                 
-                 #need to implement this
                  "misunderstood_pizza":{"yes_regex":"confirm_order","no_regex":"misunderstood_order"}
                 }
 
@@ -91,9 +89,6 @@ output_reel = {"start":"Welcome to the pizza ordering system. What pizza would y
                  "misunderstood_pizza":"I'm sorry, here's what you asked for ___. Should we restart this pizza?"
                 }
 
-
-
-
 order_x = pizzaOrder()
 pizza_x = pizza()
 
@@ -105,7 +100,7 @@ while currState != 'confirm_order':
         print(order_x)
         
     print('CURR_STATE:{}'.format(currState),'\t','PizzaBot:',output_reel[currState])
-    in_value = input().lower()
+    in_value = input(prompt='User: ').lower()
     
     if in_value == 'cancel':
         print('Thank you, goodbye!')
@@ -117,7 +112,7 @@ while currState != 'confirm_order':
         #this ensures proper phone format
         while len(in_value) != 10:
             print('Please enter a 10-digit phone number.')
-            in_value = input()
+            in_value = input(prompt='User: ')
             in_value = re.sub('[^0-9]','',in_value) 
         order_x.set_phone(in_value)
         in_value = 'phone_num'
