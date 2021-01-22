@@ -24,12 +24,13 @@ class pizzaOrder:
                 self.delivery = True
             else:
                 self.delivery = False
+
         elif info_type == "add_name":
             self.order_name = info_value
-        elif info_type == "add_phone":
-            order_x.set_phone(user_info)
 
-    elif currState == "add_phone":
+        elif info_type == "add_phone":
+            self.phone = user_info
+
 
     def set_cost_of_pizzas(self):
         self.cost_of_pizzas = [c.cost_of_pizza for c in self.list_of_pizzas]

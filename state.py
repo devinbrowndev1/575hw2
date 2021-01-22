@@ -1,8 +1,7 @@
 class state:
     def __init__(self):
         self.state_name = ''
-        self.possible_input = []
-        self.next_states = []
+        self.transitions = {}
         self.sys_out = []
         
     def __str__(self):
@@ -13,5 +12,7 @@ class state:
         self.sys_out = state_list.pop(0)
         while len(state_list) > 0:
             in_trans = state_list.pop().split(':')
-            self.possible_input.append(in_trans[0])
-            self.next_states.append(in_trans[1])
+            self.transitions[in_trans[0]] = in_trans[1]
+
+    def get_next_state(self, user_input):
+        return self.transitions[user_input].state_name

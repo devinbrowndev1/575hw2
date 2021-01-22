@@ -9,7 +9,7 @@ from pizza import pizza
 state_building_list = [
 ["add_pizza","Welcome to the pizza ordering system.\nPizzaBot:To cancel at anytime type: cancel, To repeat order at anytime type: repeat\nPizzaBot:What specialty pizza would you like?","hawaiian:change_size","vegan:change_size"]
 ,["change_size","What size? (small,medium,large)","large:change_crust","medium:change_crust","small:change_crust"]
-,["change_crust","What type of crust? (thin,deepdish,gluten-free)""regular:delivery_type","thin:delivery_type","deepdish:delivery_type","gluten-free:delivery_type"]
+,["change_crust","What type of crust? (thin,deepdish,gluten-free)","regular:delivery_type","thin:delivery_type","deepdish:delivery_type","gluten-free:delivery_type"]
 ,["delivery_type","Pick-up or delivery?","delivery:get_address","pickup:add_name"]
 ,["get_address","What is your address?","address:add_name"]
 ,["add_name","Can I get a name for the order?","name_val:add_phone"]
@@ -20,12 +20,11 @@ state_building_list = [
 
 
 #list of built states
-fsm = []
+fsm = {}
 for s in state_building_list:
     temp = state()
     temp.build_state(s)
-    fsm.append(temp)
-
+    fsm[temp.state_name] = temp
 
 
 #initialize pizzaOrder and pizza
@@ -35,13 +34,14 @@ pizza_x = pizza()
 
 
 
-currState = 'start'
+currState = "start"
 
 while currState != 'confirm_order':
 
+    # Get input from user
     in_value = input().lower().strip()
 
-    next_state, user_info = NLU.parses(in_value, currState)
+    user_info = NLU.parses(in_value, currState)
 
     #start, what kind of pizza? vegan
     #add_pizza, what size? small
@@ -52,28 +52,35 @@ while currState != 'confirm_order':
     #add_phone, is this order okay? yes
     #confirm_order
 
+    # Save their input in the order
     if currState == "add_pizza":
         pizza_x = pizza()
         order_x = pizzaOrder()
-        pizza_x.set_type_of_pizza(user_info)
+        pizza_x.set_pizza_info(currState, user_info)
+
     elif currState == "change_size":
-        pizza_x.set_size_of_pizza(user_info)
+        pizza_x.set_pizza_info(currState, user_info)
+
     elif currState == "change_crust":
-        pizza_x.set_crust_of_pizza(user_info)
+        pizza_x.set_pizza_info(currState, user_info)
         pizza_x.set_cost_of_pizzas()
         order_x.add_pizza(pizza_x)
         order_x.set_cost_of_pizzas()
+
     elif currState == "delivery_type":
-        order_x.set_delivery(user_info)
+        order_x.set_order_info(currState, user_info)
+
     elif currState == "add_name":
-        order_x.set_order_name(user_info)
-    elif currState == "add_phone":
-        order_x.set_phone(user_info)
+        order_x.set_order_info(currState, user_info)
 
     elif currState == "add_phone":
+        order_x.set_order_info(currState, user_info)
+
+    elif currState == "check_order":
 
 
-    pizzaOrder.set(user_info)
+    # Change state
+    currState = fsm[currState].get_next_state()
 
     currState = fsm[next_state]
 

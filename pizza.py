@@ -16,8 +16,10 @@ class pizza:
     def set_pizza_info(self, info_type, info_value):
         if info_type == "add_pizza":
             self.type_of_pizza = info_value
+
         elif info_type == "change_size":
             self.size_of_pizza = info_value
+            
         elif info_type == "change_crust":
             self.crust_of_pizza = info_value
 
