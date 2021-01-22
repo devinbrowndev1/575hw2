@@ -99,7 +99,26 @@ class pizza:
         self.cost_of_pizza += self.prices["size"][self.size_of_pizza][x]
         
         
-        
+   
+
+state_building_list = [
+["start","Welcome to the pizza ordering system.\nPizzaBot:To cancel at anytime type: cancel, To repeat order at anytime type: repeat\nPizzaBot:What specialty pizza would you like?","hawaiian:add_pizza","vegan:add_pizza"]
+,["add_pizza","What size? (small,medium,large)","large:change_size","medium:change_size","small:change_size"]
+,["change_size","What type of crust? (thin,deepdish,gluten-free)""regular:change_crust","thin:change_crust","deepdish:change_crust","gluten-free:change_crust"]
+,["change_crust","Pick-up or delivery?","delivery:get_address","pickup:delivery_type"]
+,["get_address","What is your address?","address:delivery_type"]
+,["delivery_type","Can I get a name for the order?","name_val:add_name"]
+,["add_name","Phone number?","phone_num:add_phone"]
+,["add_phone","Got your order. Is above okay? (Y/N)","yes_regex:confirm_order","no_regex:misunderstood_pizza"]
+,["misunderstood_pizza","I'm sorry, here's what you asked for ___. Should we restart this pizza?","yes_regex:start","no_regex:confirm_order"]]
+
+
+fsm = []
+for s in state_building_list:
+    temp = state()
+    temp.build_state(s)
+    fsm.append(temp)
+         
 #key 1 = current state
 #key 2 = input_val
 #returns next state
