@@ -37,7 +37,16 @@ pizza_x = pizza()
 
 currState = 'start'
 while currState != 'confirm_order':
-    
+
+    in_value = input().lower().strip()
+
+    NLU_output = NLU.parses(in_value)
+
+    currState = fsm[NLU_output]
+
+    #all of this goes into regex
+
+
     if currState == 'add_phone':
         print('PizzaBot: Here is your order:')
         order_x.set_cost_of_pizzas()
