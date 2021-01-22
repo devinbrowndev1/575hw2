@@ -40,5 +40,13 @@ class NLU:
             formatted_in_str = 'address'
             index_of_next_state = in_state.possible_input.index(formatted_in_str)
             next_state =  in_state.next_states[index_of_next_state]
+
+        elif (currState == 'check_order') or (currState == 'misunderstood_pizza'):
+            in_value = in_string
+            yes_or_no = in_value[0]
+            if yes_or_no == 'y':
+                in_value = 'yes_regex'
+            elif yes_or_no == 'n':
+                in_value = 'no_regex'
         
         return in_value,next_state
