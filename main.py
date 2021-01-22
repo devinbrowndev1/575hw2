@@ -7,15 +7,15 @@ from pizza import pizza
 
 
 state_building_list = [
-["start","Welcome to the pizza ordering system.\nPizzaBot:To cancel at anytime type: cancel, To repeat order at anytime type: repeat\nPizzaBot:What specialty pizza would you like?","hawaiian:add_pizza","vegan:add_pizza"]
-,["add_pizza","What size? (small,medium,large)","large:change_size","medium:change_size","small:change_size"]
-,["change_size","What type of crust? (thin,deepdish,gluten-free)""regular:change_crust","thin:change_crust","deepdish:change_crust","gluten-free:change_crust"]
-,["change_crust","Pick-up or delivery?","delivery:get_address","pickup:delivery_type"]
-,["get_address","What is your address?","address:delivery_type"]
-,["delivery_type","Can I get a name for the order?","name_val:add_name"]
-,["add_name","Phone number?","phone_num:add_phone"]
-,["add_phone","Got your order. Is above okay? (Y/N)","yes_regex:confirm_order","no_regex:misunderstood_pizza"]
-,["misunderstood_pizza","I'm sorry, here's what you asked for ___. Should we restart this pizza?","yes_regex:start","no_regex:confirm_order"]]
+["add_pizza","Welcome to the pizza ordering system.\nPizzaBot:To cancel at anytime type: cancel, To repeat order at anytime type: repeat\nPizzaBot:What specialty pizza would you like?","hawaiian:change_size","vegan:change_size"]
+,["change_size","What size? (small,medium,large)","large:change_crust","medium:change_crust","small:change_crust"]
+,["change_crust","What type of crust? (thin,deepdish,gluten-free)""regular:delivery_type","thin:delivery_type","deepdish:delivery_type","gluten-free:delivery_type"]
+,["delivery_type","Pick-up or delivery?","delivery:get_address","pickup:add_name"]
+,["get_address","What is your address?","address:add_name"]
+,["add_name","Can I get a name for the order?","name_val:add_phone"]
+,["add_phone","Phone number?","phone_num:check_order"]
+,["check_order","Got your order. Is above okay? (Y/N)","yes_regex:confirm_order","no_regex:misunderstood_pizza"]
+,["misunderstood_pizza","I'm sorry, here's what you asked for ___. Should we restart this pizza?","yes_regex:add_pizza","no_regex:confirm_order"]]
 
 
 
@@ -43,9 +43,40 @@ while currState != 'confirm_order':
 
     next_state, user_info = NLU.parses(in_value, currState)
 
+    #start, what kind of pizza? vegan
+    #add_pizza, what size? small
+    #change_size, what crust? thin
+    #change_crust, pickup or delivery? pickup
+    #delivery_type, name? jessica
+    #add_name, phone number? 123
+    #add_phone, is this order okay? yes
+    #confirm_order
+
+    if currState == "add_pizza":
+        pizza_x = pizza()
+        order_x = pizzaOrder()
+        pizza_x.set_type_of_pizza(user_info)
+    elif currState == "change_size":
+        pizza_x.set_size_of_pizza(user_info)
+    elif currState == "change_crust":
+        pizza_x.set_crust_of_pizza(user_info)
+        pizza_x.set_cost_of_pizzas()
+        order_x.add_pizza(pizza_x)
+        order_x.set_cost_of_pizzas()
+    elif currState == "delivery_type":
+        order_x.set_delivery(user_info)
+    elif currState == "add_name":
+        order_x.set_order_name(user_info)
+    elif currState == "add_phone":
+        order_x.set_phone(user_info)
+
+    elif currState == "add_phone":
+
+
     pizzaOrder.set(user_info)
 
     currState = fsm[next_state]
+
 
 
 

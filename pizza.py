@@ -13,6 +13,14 @@ class pizza:
     def __str__(self):
         return '''We added a {} {} pizza with {} crust. That will be ${}'''.format(self.size_of_pizza,self.type_of_pizza,self.crust_of_pizza,self.cost_of_pizza)
         
+    def set_pizza_info(self, info_type, info_value):
+        if info_type == "add_pizza":
+            self.type_of_pizza = info_value
+        elif info_type == "change_size":
+            self.size_of_pizza = info_value
+        elif info_type == "change_crust":
+            self.crust_of_pizza = info_value
+
     def set_type_of_pizza(self,x):
         self.type_of_pizza = x
         self.cost_of_pizza += self.prices["type"][x]

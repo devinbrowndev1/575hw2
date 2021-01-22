@@ -18,6 +18,19 @@ class pizzaOrder:
     def add_pizza(self, pizza_obj):
         self.list_of_pizzas.append(pizza_obj)
 
+    def set_order_info(self, info_type, info_value):
+        if info_type == "delivery_type":
+            if info_value == "delivery":
+                self.delivery = True
+            else:
+                self.delivery = False
+        elif info_type == "add_name":
+            self.order_name = info_value
+        elif info_type == "add_phone":
+            order_x.set_phone(user_info)
+
+    elif currState == "add_phone":
+
     def set_cost_of_pizzas(self):
         self.cost_of_pizzas = [c.cost_of_pizza for c in self.list_of_pizzas]
 
@@ -28,7 +41,10 @@ class pizzaOrder:
         self.order_name = x
 
     def set_delivery(self, x):
-        self.delivery(x)
+        if x == "delivery":
+            self.delivery = True
+        else:
+            self.delivery = False
 
     def set_address(self, x):
         self.address = x
