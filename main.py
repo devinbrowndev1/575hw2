@@ -21,16 +21,6 @@ class state:
             self.possible_input.append(in_trans[0])
             self.next_states.append(in_trans[1])
 
-#testing state class
-# test = ["start",
-# "Welcome to the pizza ordering system.\nPizzaBot:To cancel at anytime type: cancel, To repeat order at anytime type: repeat\nPizzaBot:What specialty pizza would you like?",
-# "hawaiian:add_pizza",
-# "vegan:add_pizza"]
-
-# s = state()
-# s.build_state(test)
-# print(s)
-
 
 #order class
 class pizzaOrder:
@@ -118,7 +108,7 @@ for s in state_building_list:
     temp = state()
     temp.build_state(s)
     fsm.append(temp)
-         
+
 #key 1 = current state
 #key 2 = input_val
 #returns next state
