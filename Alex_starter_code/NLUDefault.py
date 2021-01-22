@@ -16,3 +16,4 @@ class NLUDefault:
             self.SemanticFrame.Intent = "CONFIRM"
 
         return self.SemanticFrame
+

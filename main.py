@@ -36,13 +36,18 @@ pizza_x = pizza()
 
 
 currState = 'start'
+
 while currState != 'confirm_order':
 
     in_value = input().lower().strip()
 
-    NLU_output = NLU.parses(in_value)
+    next_state, user_info = NLU.parses(in_value, currState)
 
-    currState = fsm[NLU_output]
+    pizzaOrder.set(user_info)
+
+    currState = fsm[next_state]
+
+
 
     #all of this goes into regex
 
