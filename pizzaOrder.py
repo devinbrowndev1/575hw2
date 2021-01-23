@@ -29,7 +29,7 @@ class pizzaOrder:
             self.order_name = info_value
 
         elif info_type == "add_phone":
-            self.phone = user_info
+            self.phone = info_value
 
 
     def set_cost_of_pizzas(self):

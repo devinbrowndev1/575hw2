@@ -4,6 +4,7 @@ import nltk
 from state import state
 from pizzaOrder import pizzaOrder
 from pizza import pizza
+from NLUDefault import NLU
 
 
 state_building_list = [
@@ -26,22 +27,25 @@ for s in state_building_list:
     temp.build_state(s)
     fsm[temp.state_name] = temp
 
+print(fsm["add_pizza"])
+
 
 #initialize pizzaOrder and pizza
 order_x = pizzaOrder()
 pizza_x = pizza()
+parser = NLU()
 
-
-
-
-currState = "start"
+currState = "add_pizza"
 
 while currState != 'confirm_order':
+
+    # Prompt user for input
+    print(fsm[currState].sys_out)
 
     # Get input from user
     in_value = input().lower().strip()
 
-    user_info = NLU.parses(in_value, currState)
+    user_info, next_state = parser.parse(fsm[currState], in_value)
 
     #start, what kind of pizza? vegan
     #add_pizza, what size? small
@@ -54,8 +58,6 @@ while currState != 'confirm_order':
 
     # Save their input in the order
     if currState == "add_pizza":
-        pizza_x = pizza()
-        order_x = pizzaOrder()
         pizza_x.set_pizza_info(currState, user_info)
 
     elif currState == "change_size":
@@ -63,7 +65,6 @@ while currState != 'confirm_order':
 
     elif currState == "change_crust":
         pizza_x.set_pizza_info(currState, user_info)
-        pizza_x.set_cost_of_pizzas()
         order_x.add_pizza(pizza_x)
         order_x.set_cost_of_pizzas()
 
@@ -76,84 +77,80 @@ while currState != 'confirm_order':
     elif currState == "add_phone":
         order_x.set_order_info(currState, user_info)
 
-    elif currState == "check_order":
-
-
     # Change state
-    currState = fsm[currState].get_next_state()
+    currState = next_state
 
-    currState = fsm[next_state]
-
+print("Order confirmed. Have a nice day!")
 
 
 
     #all of this goes into regex
 
 
-    if currState == 'add_phone':
-        print('PizzaBot: Here is your order:')
-        order_x.set_cost_of_pizzas()
-        order_x.set_total_cost()
-        print(order_x)
+    # if currState == 'add_phone':
+    #     print('PizzaBot: Here is your order:')
+    #     order_x.set_cost_of_pizzas()
+    #     order_x.set_total_cost()
+    #     print(order_x)
 
-    elif currState == 'change_crust':
-        print(pizza_x)
+    # elif currState == 'change_crust':
+    #     print(pizza_x)
     
-    #get input  
-    print('CURR_STATE:{}'.format(currState),'\t','PizzaBot:',output_reel[currState])
-    in_value = input().lower().strip()
-    if in_value == 'repeat':
-        continue
+    # #get input  
+    # print('CURR_STATE:{}'.format(currState),'\t','PizzaBot:',output_reel[currState])
+    # in_value = input().lower().strip()
+    # if in_value == 'repeat':
+    #     continue
     
-    #cancel order
-    if in_value == 'cancel':
-        print('Thank you, goodbye!')
-        break
+    # #cancel order
+    # if in_value == 'cancel':
+    #     print('Thank you, goodbye!')
+    #     break
     
-    ######### additional regex #########
-    if currState == 'add_name':
-        in_value = re.sub('[^0-9]','',in_value)
-        #this ensures proper phone format
-        while len(in_value) != 10:
-            print('Please enter a 10-digit phone number.')
-            in_value = input().strip()
-            in_value = re.sub('[^0-9]','',in_value) 
-        order_x.set_phone(in_value)
-        in_value = 'phone_num'
+    # ######### additional regex #########
+    # if currState == 'add_name':
+    #     in_value = re.sub('[^0-9]','',in_value)
+    #     #this ensures proper phone format
+    #     while len(in_value) != 10:
+    #         print('Please enter a 10-digit phone number.')
+    #         in_value = input().strip()
+    #         in_value = re.sub('[^0-9]','',in_value) 
+    #     order_x.set_phone(in_value)
+    #     in_value = 'phone_num'
         
-    elif currState == 'delivery_type':
-        order_x.set_order_name(in_value)
-        in_value = 'name_val'
+    # elif currState == 'delivery_type':
+    #     order_x.set_order_name(in_value)
+    #     in_value = 'name_val'
 
-    elif currState == "get_address":
-        order_x.set_address(in_value)
-        in_value = "address"
+    # elif currState == "get_address":
+    #     order_x.set_address(in_value)
+    #     in_value = "address"
 
-    elif currState == 'change_crust':
-        in_value = re.sub('[^\w]','',in_value)
+    # elif currState == 'change_crust':
+    #     in_value = re.sub('[^\w]','',in_value)
         
-    elif (currState == 'add_phone') or (currState == 'misunderstood_pizza'):
-        yes_or_no = in_value[0]
-        if yes_or_no == 'y':
-            in_value = 'yes_regex'
-        elif yes_or_no == 'n':
-            in_value = 'no_regex'
+    # elif (currState == 'add_phone') or (currState == 'misunderstood_pizza'):
+    #     yes_or_no = in_value[0]
+    #     if yes_or_no == 'y':
+    #         in_value = 'yes_regex'
+    #     elif yes_or_no == 'n':
+    #         in_value = 'no_regex'
 
     
-    ########## reset the state ##########
-    try:
-        currState = state_machine[currState][in_value]
-        if currState == 'add_pizza':
-            pizza_x.set_type_of_pizza(in_value)
-        elif currState == 'change_size':
-            pizza_x.set_size_of_pizza(in_value)
-            order_x.add_pizza(pizza_x)
-        elif currState == 'change_crust':
-            pizza_x.set_crust_of_pizza(in_value)
+    # ########## reset the state ##########
+    # try:
+    #     currState = state_machine[currState][in_value]
+    #     if currState == 'add_pizza':
+    #         pizza_x.set_type_of_pizza(in_value)
+    #     elif currState == 'change_size':
+    #         pizza_x.set_size_of_pizza(in_value)
+    #         order_x.add_pizza(pizza_x)
+    #     elif currState == 'change_crust':
+    #         pizza_x.set_crust_of_pizza(in_value)
 
 
-        if currState == 'confirm_order':
-            print(output_reel[currState])
+    #     if currState == 'confirm_order':
+    #         print(output_reel[currState])
             
-    except:
-        print("Sorry, I didn't get that")
+    # except:
+    #     print("Sorry, I didn't get that")
