@@ -13,7 +13,7 @@ class pizzaOrder:
         return '''Got your order for a {} {} pizza on {} crust, which will cost ${}'''.format(pizz.type_of_pizza,
                                                                                              pizz.size_of_pizza,
                                                                                              pizz.crust_of_pizza,
-                                                                                             pizz.cost_of_pizza)
+                                                                                             self.total_cost)
     #setter functions
     def add_pizza(self, pizza_obj):
         self.list_of_pizzas.append(pizza_obj)

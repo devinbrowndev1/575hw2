@@ -15,13 +15,13 @@ class pizza:
         
     def set_pizza_info(self, info_type, info_value):
         if info_type == "add_pizza":
-            self.type_of_pizza = info_value
+            self.set_type_of_pizza(info_value)
 
         elif info_type == "change_size":
-            self.size_of_pizza = info_value
+            self.set_size_of_pizza(info_value)
             
         elif info_type == "change_crust":
-            self.crust_of_pizza = info_value
+            self.set_crust_of_pizza(info_value)
 
     def set_type_of_pizza(self,x):
         self.type_of_pizza = x
@@ -33,3 +33,4 @@ class pizza:
     def set_crust_of_pizza(self,x):
         self.crust_of_pizza = x
         self.cost_of_pizza += self.prices["size"][self.size_of_pizza][x]
+        print(self.cost_of_pizza)
