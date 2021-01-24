@@ -1,6 +1,7 @@
 #pizza class
-class pizza:
+class pizzaFrame:
     def __init__(self):
+        self.completed = [0,0,0]
         self.type_of_pizza = ''
         self.size_of_pizza = ''
         self.crust_of_pizza = ''
@@ -16,12 +17,15 @@ class pizza:
     def set_pizza_info(self, info_type, info_value):
         if info_type == "add_pizza":
             self.set_type_of_pizza(info_value)
+            self.completed[0] = 1
 
         elif info_type == "change_size":
             self.set_size_of_pizza(info_value)
+            self.completed[1] = 1
             
         elif info_type == "change_crust":
             self.set_crust_of_pizza(info_value)
+            self.completed[2] = 1
 
     def set_type_of_pizza(self,x):
         self.type_of_pizza = x
