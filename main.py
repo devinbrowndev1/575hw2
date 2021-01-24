@@ -8,7 +8,7 @@ from NLUDefault import NLU
 
 
 state_building_list = [
-["add_pizza","Welcome to the pizza ordering system.\nPizzaBot:To cancel at anytime type: cancel, To repeat order at anytime type: repeat\nPizzaBot:What specialty pizza would you like?","hawaiian:change_size","vegan:change_size"]
+["add_pizza","Welcome to the pizza ordering system.\nTo cancel at anytime type: cancel\nTo repeat order at anytime type: repeat\nTo start over at any time, type: start over\nWhat specialty pizza would you like?","hawaiian:change_size","vegan:change_size"]
 ,["change_size","What size? (small,medium,large)","large:change_crust","medium:change_crust","small:change_crust"]
 ,["change_crust","What type of crust? (thin,deepdish,gluten-free)","regular:delivery_type","thin:delivery_type","deepdish:delivery_type","gluten-free:delivery_type"]
 ,["delivery_type","Pick-up or delivery?","delivery:get_address","pickup:add_name"]
@@ -16,7 +16,8 @@ state_building_list = [
 ,["add_name","Can I get a name for the order?","name_val:add_phone"]
 ,["add_phone","Phone number?","phone_num:check_order"]
 ,["check_order","Got your order.","yes_regex:confirm_order","no_regex:misunderstood_pizza"]
-,["misunderstood_pizza","I'm sorry, here's what you asked for ___. Should we restart this pizza?","yes_regex:add_pizza","no_regex:confirm_order"]]
+,["misunderstood_pizza","I'm sorry, here's what you asked for ___. Should we restart this pizza?","yes_regex:add_pizza","no_regex:confirm_order"]
+,["cancel", "We've cancelled your order, have a nice day"]]
 
 
 
@@ -48,18 +49,24 @@ while currState != 'confirm_order':
     # Get input from user
     in_value = input().lower().strip()
 
-    user_info, next_state = parser.parse(fsm[currState], in_value)
+    if in_value == "cancel":
+        print("We've cancelled your order. Have a nice day!")
+        break
+    if in_value == "repeat":
+        continue
+    if in_value == "start over":
+        pizza_x = pizza()
+        order_x = pizzaOrder()
+        currState = "add_pizza"
+        continue
 
-    #start, what kind of pizza? vegan
-    #add_pizza, what size? small
-    #change_size, what crust? thin
-    #change_crust, pickup or delivery? pickup
-    #delivery_type, name? jessica
-    #add_name, phone number? 123
-    #add_phone, is this order okay? yes
-    #confirm_order
+    try:
+        user_info, next_state = parser.parse(fsm[currState], in_value)
+    except:
+        continue
 
     # Save their input in the order
+
     if currState == "add_pizza":
         pizza_x.set_pizza_info(currState, user_info)
 
@@ -84,7 +91,8 @@ while currState != 'confirm_order':
     # Change state
     currState = next_state
 
-print("Order confirmed. Have a nice day!")
+if currState == "confirm_order":
+    print("Order confirmed. Have a nice day!")
 
 
 

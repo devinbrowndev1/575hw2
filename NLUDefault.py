@@ -5,6 +5,7 @@ class NLU:
         self.placeholder = ''
 
     def parse(self,in_state,in_string):
+
         if in_state.state_name == "add_pizza" or in_state.state_name == "change_size":
             in_value = in_string
             next_state = in_state.get_next_state(in_value)
@@ -35,7 +36,7 @@ class NLU:
                 formatted_in_str = 'deepdish'
             elif formatted_in_str in ['thin','th','skinny']:
                 formatted_in_str = 'thin'
-        
+
             next_state = in_state.get_next_state(formatted_in_str)
 
         elif in_state.state_name == "delivery_type":
@@ -59,5 +60,5 @@ class NLU:
             elif yes_or_no == 'n':
                 in_value = 'no_regex'
             next_state = in_state.get_next_state(in_value)
-        
+
         return in_value,next_state
