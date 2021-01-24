@@ -1,5 +1,5 @@
 import argparse
-from NLUDefault import NLUDefault
+from q1q2.NLUDefault import NLUDefault
 from NLGDefault import NLGDefault
 from FSM import FSM
 from FrameDMSimple import FrameDMSimple

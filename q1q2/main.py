@@ -1,10 +1,7 @@
-import sys
-import re
-import nltk
-from state import state
-from pizzaOrder import pizzaOrder
-from pizza import pizza
-from NLUDefault import NLU
+from q1q2.state import state
+from q1q2.pizzaOrder import pizzaOrder
+from q1q2.pizza import pizza
+from q1q2.NLUDefault import NLU
 
 
 state_building_list = [
