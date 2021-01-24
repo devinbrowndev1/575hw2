@@ -15,7 +15,7 @@ state_building_list = [
 ,["get_address","What is your address?","address:add_name"]
 ,["add_name","Can I get a name for the order?","name_val:add_phone"]
 ,["add_phone","Phone number?","phone_num:check_order"]
-,["check_order","Got your order. Is above okay? (Y/N)","yes_regex:confirm_order","no_regex:misunderstood_pizza"]
+,["check_order","Got your order.","yes_regex:confirm_order","no_regex:misunderstood_pizza"]
 ,["misunderstood_pizza","I'm sorry, here's what you asked for ___. Should we restart this pizza?","yes_regex:add_pizza","no_regex:confirm_order"]]
 
 
@@ -27,7 +27,7 @@ for s in state_building_list:
     temp.build_state(s)
     fsm[temp.state_name] = temp
 
-print(fsm["add_pizza"])
+#print(fsm["add_pizza"])
 
 
 #initialize pizzaOrder and pizza
@@ -41,6 +41,9 @@ while currState != 'confirm_order':
 
     # Prompt user for input
     print(fsm[currState].sys_out)
+
+    if currState == 'check_order':
+        print(order_x,'Is this okay? (Y/N)')
 
     # Get input from user
     in_value = input().lower().strip()
