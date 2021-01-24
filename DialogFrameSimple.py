@@ -7,4 +7,4 @@ class DialogFrameSimple:
         self.total_cost = 0
         self.order_name = ""
         self.phone_number = 0
-
+        

@@ -70,6 +70,7 @@ while currState != 'confirm_order':
         pizza_x.set_pizza_info(currState, user_info)
         order_x.add_pizza(pizza_x)
         order_x.set_cost_of_pizzas()
+        order_x.set_total_cost()
 
     elif currState == "delivery_type":
         order_x.set_order_info(currState, user_info)
