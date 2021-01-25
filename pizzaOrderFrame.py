@@ -8,6 +8,7 @@ class pizzaOrderFrame:
         self.phone = ''
         self.cost_of_pizzas = []
         self.total_cost = 0
+        self.wait_time = 20
 
     def __str__(self):
         pizz = self.list_of_pizzas[0]

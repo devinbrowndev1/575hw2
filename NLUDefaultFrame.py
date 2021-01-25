@@ -34,6 +34,9 @@ class NLU:
         elif "pickup" in in_string or "pick-up" in in_string:
             returned_info.append(("pickup", "delivery_type"))
 
+        if "reorder" in in_string:
+            returned_info.append(("reorder", "reorder"))
+
         if any(map(str.isdigit, in_string)):
             in_value = re.sub('[^0-9]', '', in_string)
             if len(in_value) == 10:
