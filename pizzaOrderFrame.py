@@ -54,10 +54,12 @@ class pizzaOrderFrame:
 
     def set_order_name(self, x):
         self.order_name = x
+        self.completed[1] = 1
 
     def set_address(self, x):
         self.address = x
-        self.completed[4] = 1
+        self.completed[3] = 1
 
     def set_phone(self, x):
         self.phone = x
+        self.completed[4] = 1

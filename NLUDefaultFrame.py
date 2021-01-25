@@ -44,6 +44,11 @@ class NLU:
             else:
                 returned_info.append(("123 Main Street", "add_address"))
 
+        if "yes" == in_string or "Yes" == in_string:
+            returned_info.append(("yes", "yes"))
+        elif "no" == in_string or "No" == in_string:
+            returned_info.append(("no", "no"))
+
         return returned_info
 
     """
