@@ -64,6 +64,7 @@ confirmed_order_info = -1
 
 while orderIncomplete:
     if (pizza_x.completed == pizza_complete):
+        pizza_x.set_cost_of_pizza()
         order_x.add_pizza(pizza_x)
         if order_x.completed == order_complete:
             orderIncomplete = False
