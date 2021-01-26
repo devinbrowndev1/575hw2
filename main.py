@@ -3,6 +3,8 @@ from pizzaFrame import pizzaFrame
 from NLUDefaultFrame import NLU
 
 
+canceled_order = False
+
 #setup example pizza
 pizza_example = pizzaFrame()
 pizza_example.type_of_pizza = 'vegan'
@@ -106,6 +108,11 @@ while orderIncomplete:
 
     in_value = input().strip()
 
+    if in_value == 'cancel':
+        print('Sorry to see you go! Please come again!')
+        canceled_order = True
+        break
+
     slot_list = parser.parse(in_value)
 
     for slot in slot_list:
@@ -154,4 +161,5 @@ while orderIncomplete:
         print("")
 
 
-print("Thanks for your order!")
+if not canceled_order:
+    print("Thanks for your order!")
