@@ -10,18 +10,13 @@ class pizzaOrderFrame:
         self.total_cost = 0
         self.wait_time = 20
 
+
     def __str__(self):
         pizz = self.list_of_pizzas[0]
-        return '''Got your order for a {} {} pizza on {} crust, which will cost ${}\. The name for the order is {}\n and it will be {}\nAddress:{}\nPhone:{}'''.format(pizz.type_of_pizza,
-                                                                                             pizz.size_of_pizza,
-                                                                                             pizz.crust_of_pizza,
-                                                                                             self.total_cost,
-                                                        self.order_name, self.delivery, self.address, self.phone)
-
-    def print_delivery_method(self):
-        pizz = self.list_of_pizzas[0]
         if self.delivery:
-            return '''Got your order for a {} {} pizza on {} crust, which will cost ${}\. The name for the order is {}\n and it will be delivered to {}'''.format(pizz.type_of_pizza,pizz.size_of_pizza,pizz.crust_of_pizza,self.total_cost,self.order_name, self.address)  
+            return '''Got your order for a {} {} pizza on {} crust, which will cost ${}. The name for the order is {} and it will be delivered to {}'''.format(pizz.size_of_pizza,pizz.type_of_pizza,pizz.crust_of_pizza,self.total_cost,self.order_name, self.address)  
+        else:
+            return '''Got your order for a {} {} pizza on {} crust, which will cost ${}. The name for the order is {} and it scheduled for pickup.'''.format(pizz.size_of_pizza,pizz.type_of_pizza,pizz.crust_of_pizza,self.total_cost,self.order_name)  
 
     #setter functions
     def add_pizza(self, pizza_obj):

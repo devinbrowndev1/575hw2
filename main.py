@@ -67,7 +67,7 @@ while orderIncomplete:
         order_x.add_pizza(pizza_x)
         if order_x.completed == order_complete:
             orderIncomplete = False
-            print(order_x.print_delivery_method())
+            print(order_x)
             break
 
     asked_for_info = False
