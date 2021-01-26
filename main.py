@@ -31,9 +31,9 @@ pizza_slot_request = ["What can I do for you?",
                       "What size pizza would you like?",
                       "What crust do you want on your pizza?"]
 
-pizza_reorder_request = ["Do you want a {} pizza?",
-                      "Do you want a {} pizza",
-                      "Do you want {} crust?"]
+pizza_reorder_request = ["Do you still want a {} pizza?",
+                      "Do you still want a {} pizza",
+                      "Do you still want {} crust?"]
 
 order_slot_request = ["What kind of pizza do you want?",
                       "What is your name?",
@@ -154,7 +154,7 @@ while orderIncomplete:
         else:
             order_x.set_order_info(info_type, value)
 
-    print(pizza_x)
+    #print(pizza_x)
     try:
         print(order_x)
     except:
