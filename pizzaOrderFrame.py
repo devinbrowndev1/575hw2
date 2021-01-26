@@ -24,11 +24,11 @@ class pizzaOrderFrame:
         self.completed[0] = 1
 
     def set_order_info(self, info_type, info_value):
-        if info_type == "add_name":
+        if info_type == "add_name" or info_type == 1:
             self.order_name = info_value
             self.completed[1] = 1
 
-        elif info_type == "delivery_type":
+        elif info_type == "delivery_type" or info_type == 2:
             if info_value == "delivery":
                 self.delivery = True
                 self.completed[2] = 1
@@ -37,29 +37,15 @@ class pizzaOrderFrame:
                 self.completed[2] = 1
                 self.completed[3] = 1
 
-        elif info_type == "add_address":
+        elif info_type == "add_address" or info_type == 3:
             self.address = info_value
             self.completed[3] = 1
 
-        elif info_type == "add_phone":
+        elif info_type == "add_phone" or info_type == 4:
             self.phone = info_value
             self.completed[4] = 1
 
 
-    def set_cost_of_pizzas(self):
-        self.cost_of_pizzas = [c.cost_of_pizza for c in self.list_of_pizzas]
-
     def set_total_cost(self):
         self.total_cost = sum(self.cost_of_pizzas)
 
-    def set_order_name(self, x):
-        self.order_name = x
-        self.completed[1] = 1
-
-    def set_address(self, x):
-        self.address = x
-        self.completed[3] = 1
-
-    def set_phone(self, x):
-        self.phone = x
-        self.completed[4] = 1
