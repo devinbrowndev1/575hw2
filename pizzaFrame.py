@@ -6,7 +6,7 @@ class pizzaFrame:
         self.size_of_pizza = ''
         self.crust_of_pizza = ''
         self.cost_of_pizza = 0
-        self.prices = {"type":{"hawaiian": 6, "vegan": 8},
+        self.prices = {"type":{"hawaiian": 6, "vegan": 8, "meat lovers":12.5, "4 cheese":6, "pepperoni":4, "veggie supreme":9.5},
                        "size":{"small":{"thin":10, "regular":10, "deepdish":12, "gluten-free":15}, 
                                "medium":{"thin":12, "regular":12, "deepdish":14, "gluten-free":18}, 
                                "large":{"thin":14, "regular":14, "deepdish":18, "gluten-free":21}}}
