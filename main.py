@@ -128,24 +128,10 @@ while orderIncomplete:
 
         if info_type == "yes":
             if confirmed_order_info >= 0:
-                if confirmed_order_info == 0:
-                    order_x.add_pizza(pizza_compare)
-                elif confirmed_order_info == 1:
-                    order_x.set_order_name(order_compare.order_name)
-                elif confirmed_order_info == 2:
-                    order_x.delivery = order_compare.delivery
-                    order_x.completed[2] = 1
-                elif confirmed_order_info == 3:
-                    order_x.set_address(order_compare.address)
-                elif confirmed_order_info == 4:
-                    order_x.set_phone(order_compare.phone)
-            elif confirmed_pizza_info >= 0:
-                if confirmed_pizza_info == 0:
-                    pizza_x.set_type_of_pizza(pizza_compare.type_of_pizza)
-                elif confirmed_pizza_info == 1:
-                    pizza_x.set_size_of_pizza(pizza_compare.size_of_pizza)
-                elif confirmed_pizza_info == 2:
-                    pizza_x.set_crust_of_pizza(pizza_compare.crust_of_pizza)
+                order_x.set_order_info(confirmed_order_info, order_compare.get_order_info(confirmed_order_info))
+            else:
+                pizza_x.set_pizza_info(confirmed_pizza_info, pizza_compare.get_pizza_info(confirmed_pizza_info))
+                order_x.add_pizza(pizza_x)
         elif info_type == "no":
             print("Okay, we'll ignore your stored order information.")
             reorder = False
