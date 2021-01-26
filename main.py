@@ -27,7 +27,7 @@ account_dict = {
     '1234567890':order_example
 }
 
-pizza_slot_request = ["What can I do for you?",
+pizza_slot_request = ["What would you like?",
                       "What size pizza would you like?",
                       "What crust do you want on your pizza?"]
 
@@ -68,7 +68,16 @@ while orderIncomplete:
         if order_x.completed == order_complete:
             orderIncomplete = False
             print(order_x)
-            break
+            print('Is this correct? (yes/no)')
+            yno = input()
+            confirm_list = parser.parse(yno)
+            if confirm_list[0][0] == 'yes':
+                break
+            else:
+                print('Okay let\'s start over from the beginning.')
+                orderIncomplete = True
+                order_x = pizzaOrderFrame()
+                pizza_x = pizzaFrame()
 
     asked_for_info = False
 
@@ -115,6 +124,29 @@ while orderIncomplete:
         break
 
     slot_list = parser.parse(in_value)
+    out_str = ''
+    for s in slot_list:
+        #print(s[1])
+        if s[1] == 'add_name':
+            out_str +=  'Name '
+        elif s[1] == 'address ':
+            out_str += 'Address'
+        elif s[1] == 'delivery_type':
+            out_str += 'Delivery method '
+        elif s[1] == 'add_phone':
+            out_str += 'Phone number '
+        elif s[1] == 'change_size':
+            out_str += 'Pizza size '
+        elif s[1] == 'change_crust':
+            out_str += 'Pizza crust '
+        elif s[1] == 'add_pizza':
+            out_str += 'Pizza type'
+            
+    if len(out_str) > 0:
+        print('Okay we got the following information:')
+        print(out_str)
+        print('-------------------')
+
 
     for slot in slot_list:
         value, info_type = slot
@@ -146,4 +178,4 @@ while orderIncomplete:
 
 
 if not canceled_order:
-    print("Thanks for your order!")
+    print("Thanks for your order! It will be ready in {} minutes.".format(order_x.wait_time))

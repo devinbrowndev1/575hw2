@@ -3,6 +3,11 @@ import re
 class NLU:
     def __init__(self):
         self.placeholder = ''
+        self.oflavors = ["vegan", "hawaiian", "meat lovers", "4 cheese", "pepperoni", "veggie supreme"]
+        self.osizes = ["small", "medium", "large"]
+        self.ocrusts = ["thin", "regular", "gluten-free", "deep-dish"]
+        self.onames = ["Jessica", "Devin", "Alex", "Alexandra"]
+        self.oaddresses = ["195 Stevens Way", "185 Stevens Way", "155 Stevens Way"]
 
     def parse(self,in_string):
 
@@ -10,11 +15,11 @@ class NLU:
 
         returned_info = []
 
-        flavors = ["vegan", "hawaiian", "meat lovers", "4 cheese", "pepperoni", "veggie supreme"]
-        sizes = ["small", "medium", "large"]
-        crusts = ["thin", "regular", "gluten-free", "deep-dish"]
-        names = ["Jessica", "Devin", "Alex", "Alexandra"]
-        addresses = ["195 Stevens Way", "185 Stevens Way", "155 Stevens Way"]
+        flavors = self.oflavors
+        sizes = self.osizes
+        crusts = self.ocrusts
+        names = self.onames
+        addresses = self.oaddresses
 
         for flavor in flavors:
             if flavor in in_string.lower():
