@@ -67,6 +67,7 @@ while orderIncomplete:
         order_x.add_pizza(pizza_x)
         if order_x.completed == order_complete:
             orderIncomplete = False
+            print(order_x.print_delivery_method())
             break
 
     asked_for_info = False
@@ -154,11 +155,8 @@ while orderIncomplete:
         else:
             order_x.set_order_info(info_type, value)
 
-    #print(pizza_x)
-    try:
-        print(order_x)
-    except:
-        print("")
+
+
 
 
 if not canceled_order:

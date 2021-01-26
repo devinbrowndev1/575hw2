@@ -12,12 +12,17 @@ class pizzaOrderFrame:
 
     def __str__(self):
         pizz = self.list_of_pizzas[0]
-        return '''Got your order for a {} {} pizza on {} crust, which will cost ${}\n
-                Name:{}\nDelivery:{}\nAddress:{}\nPhone:{}'''.format(pizz.type_of_pizza,
+        return '''Got your order for a {} {} pizza on {} crust, which will cost ${}\. The name for the order is {}\n and it will be {}\nAddress:{}\nPhone:{}'''.format(pizz.type_of_pizza,
                                                                                              pizz.size_of_pizza,
                                                                                              pizz.crust_of_pizza,
                                                                                              self.total_cost,
                                                         self.order_name, self.delivery, self.address, self.phone)
+
+    def print_delivery_method(self):
+        pizz = self.list_of_pizzas[0]
+        if self.delivery:
+            return '''Got your order for a {} {} pizza on {} crust, which will cost ${}\. The name for the order is {}\n and it will be delivered to {}'''.format(pizz.type_of_pizza,pizz.size_of_pizza,pizz.crust_of_pizza,self.total_cost,self.order_name, self.address)  
+
     #setter functions
     def add_pizza(self, pizza_obj):
         self.list_of_pizzas.append(pizza_obj)
