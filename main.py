@@ -68,6 +68,7 @@ while orderIncomplete:
         order_x.add_pizza(pizza_x)
         if order_x.completed == order_complete:
             orderIncomplete = False
+            order_x.set_total_cost()
             print(order_x)
             print('Is this correct? (yes/no)')
             yno = input()
@@ -76,6 +77,7 @@ while orderIncomplete:
                 break
             else:
                 print('Okay let\'s start over from the beginning.')
+                print('-------------------')
                 orderIncomplete = True
                 order_x = pizzaOrderFrame()
                 pizza_x = pizzaFrame()
@@ -129,19 +131,19 @@ while orderIncomplete:
     for s in slot_list:
         #print(s[1])
         if s[1] == 'add_name':
-            out_str +=  'Name '
-        elif s[1] == 'address ':
-            out_str += 'Address'
+            out_str +=  'Name, '
+        elif s[1] == 'address':
+            out_str += 'Address, '
         elif s[1] == 'delivery_type':
-            out_str += 'Delivery method '
+            out_str += 'Delivery method, '
         elif s[1] == 'add_phone':
-            out_str += 'Phone number '
+            out_str += 'Phone number, '
         elif s[1] == 'change_size':
-            out_str += 'Pizza size '
+            out_str += 'Pizza size, '
         elif s[1] == 'change_crust':
-            out_str += 'Pizza crust '
+            out_str += 'Pizza crust, '
         elif s[1] == 'add_pizza':
-            out_str += 'Pizza type'
+            out_str += 'Pizza type, '
             
     if len(out_str) > 0:
         print('Okay we got the following information:')
@@ -167,6 +169,7 @@ while orderIncomplete:
                 order_x.add_pizza(pizza_x)
         elif info_type == "no":
             print("Okay, we'll ignore your stored order information.")
+            print('-------------------')
             reorder = False
 
         if info_type in pizza_values:

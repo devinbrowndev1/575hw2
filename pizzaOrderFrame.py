@@ -69,5 +69,7 @@ class pizzaOrderFrame:
             return None
 
     def set_total_cost(self):
+        pizz = self.list_of_pizzas[0]
+        self.cost_of_pizzas = [pizz.cost_of_pizza]
         self.total_cost = sum(self.cost_of_pizzas)
 
