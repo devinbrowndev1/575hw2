@@ -40,7 +40,6 @@ class pizzaFrame:
 
     def set_type_of_pizza(self,x):
         self.type_of_pizza = x
-        self.cost_of_pizza += self.prices["type"][x]
         self.completed[0] = 1
 
     def set_size_of_pizza(self,x):
@@ -49,5 +48,7 @@ class pizzaFrame:
         
     def set_crust_of_pizza(self,x):
         self.crust_of_pizza = x
-        self.cost_of_pizza += self.prices["size"][self.size_of_pizza][x]
         self.completed[2] = 1
+
+    def set_cost_of_pizza(self):
+        self.cost_of_pizza = self.prices["type"][self.type_of_pizza] + self.prices["size"][self.size_of_pizza][self.crust_of_pizza]
