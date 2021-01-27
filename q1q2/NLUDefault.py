@@ -4,7 +4,7 @@ class NLU:
     def __init__(self):
         self.placeholder = ''
 
-    def parse(self,in_string):
+    def parse(self,in_state,in_string):
 
         if in_state.state_name == "add_pizza" or in_state.state_name == "change_size":
             in_value = in_string

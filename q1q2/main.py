@@ -1,7 +1,7 @@
-from q1q2.state import state
-from q1q2.pizzaOrder import pizzaOrder
-from q1q2.pizza import pizza
-from q1q2.NLUDefault import NLU
+from state import state
+from pizzaOrder import pizzaOrder
+from pizza import pizza
+from NLUDefault import NLU
 
 
 state_building_list = [
@@ -57,10 +57,10 @@ while currState != 'confirm_order':
         currState = "add_pizza"
         continue
 
-    try:
-        user_info, next_state = parser.parse(fsm[currState], in_value)
-    except:
-        continue
+    
+    user_info, next_state = parser.parse(fsm[currState], in_value)
+    #except:
+    #    continue
 
     # Save their input in the order
 
