@@ -34,7 +34,7 @@ class pizzaOrderFrame:
             self.completed[1] = 1
 
         elif info_type == "delivery_type" or info_type == 2:
-            if info_value == True:
+            if info_value == True or info_value == "delivery":
                 self.delivery = True
                 self.completed[2] = 1
             else:

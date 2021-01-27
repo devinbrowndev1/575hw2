@@ -47,6 +47,12 @@ order_reorder_request = ["Do you still want this pizza?:\n{}",
                       "Is your address still {}?",
                       "And your phone number is still {}?"]
 
+grounding = {"add_name":"Okay, hi, {}.",
+             "address":"We'll deliver to {}.",
+             "add_phone":"Got it, {}.",
+             "change_size":"{}.",
+             "change_crust":"Okay, {} crust.",
+             "add_pizza":"Great, a {} pizza."}
 
 #initialize pizzaOrder and pizza
 order_x = pizzaOrderFrame()
@@ -127,32 +133,16 @@ while orderIncomplete:
         break
 
     slot_list = parser.parse(in_value)
-    out_str = ''
-    for s in slot_list:
-        #print(s[1])
-        if s[1] == 'add_name':
-            out_str +=  'Name, '
-        elif s[1] == 'address':
-            out_str += 'Address, '
-        elif s[1] == 'delivery_type':
-            out_str += 'Delivery method, '
-        elif s[1] == 'add_phone':
-            out_str += 'Phone number, '
-        elif s[1] == 'change_size':
-            out_str += 'Pizza size, '
-        elif s[1] == 'change_crust':
-            out_str += 'Pizza crust, '
-        elif s[1] == 'add_pizza':
-            out_str += 'Pizza type, '
-            
-    if len(out_str) > 0:
-        print('Okay we got the following information:')
-        print(out_str)
-        print('-------------------')
 
 
     for slot in slot_list:
         value, info_type = slot
+
+        try:
+            print(grounding[info_type].format(value))
+        except:
+            x=1
+
 
         if info_type == 'reorder':
             reorder = True
@@ -176,6 +166,7 @@ while orderIncomplete:
             pizza_x.set_pizza_info(info_type, value)
         else:
             order_x.set_order_info(info_type, value)
+
 
 
 
