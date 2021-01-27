@@ -13,7 +13,7 @@ state_building_list = [
 ,["add_name","Can I get a name for the order?","name_val:add_phone"]
 ,["add_phone","Phone number?","phone_num:check_order"]
 ,["check_order","Got your order.","yes_regex:confirm_order","no_regex:misunderstood_pizza"]
-,["misunderstood_pizza","I'm sorry, here's what you asked for ___. Should we restart this pizza?","yes_regex:add_pizza","no_regex:confirm_order"]
+,["misunderstood_pizza","I'm sorry, here's what you asked for.\n {} \n Should we restart this pizza?","yes_regex:add_pizza","no_regex:confirm_order"]
 ,["cancel", "We've cancelled your order, have a nice day"]]
 
 
@@ -38,7 +38,11 @@ currState = "add_pizza"
 while currState != 'confirm_order':
 
     # Prompt user for input
-    print(fsm[currState].sys_out)
+    if currState == 'misunderstood_pizza':
+        print(fsm[currState].sys_out.format(pizza_x))
+    else:
+        print(fsm[currState].sys_out)
+
 
     if currState == 'check_order':
         print(order_x,'Is this okay? (Y/N)')
@@ -57,10 +61,11 @@ while currState != 'confirm_order':
         currState = "add_pizza"
         continue
 
-    
-    user_info, next_state = parser.parse(fsm[currState], in_value)
-    #except:
-    #    continue
+    try:
+        user_info, next_state = parser.parse(fsm[currState], in_value)
+    except:
+        print('Sorry, I didn\'t get that')
+        continue
 
     # Save their input in the order
 
@@ -84,6 +89,11 @@ while currState != 'confirm_order':
 
     elif currState == "add_phone":
         order_x.set_order_info(currState, user_info)
+
+    elif currState == 'misunderstood_pizza' and user_info == 'yes_regex':
+        pizza_x = pizza()
+        order_x = pizzaOrder()
+
 
     # Change state
     currState = next_state
