@@ -65,6 +65,7 @@ pizza_complete = [1,1,1]
 order_complete = [1,1,1,1,1]
 
 reorder = False
+exit = False
 confirmed_pizza_info = -1
 confirmed_order_info = -1
 
@@ -127,6 +128,25 @@ while orderIncomplete:
 
     in_value = input().strip()
 
+    #THIS IF BLOCK IS FOR CHECKING ORDER STATUS
+    #IT ONLY WORKS ON THE 
+    if in_value == 'status':
+        print('Can I get a phone number for the account?')
+        temp = input().strip()
+        if temp == order_example.phone:
+            print('Your order will be ready in {} minutes'.format(order_example.wait_time))
+            print('Is that all? (Y/N)')
+            temp = input().strip()
+            if temp == 'y' or temp == 'Y' or temp == 'yes' or temp == 'Yes':
+                print('Thank you! See you soon.')
+                exit = True
+                break
+            else:
+                continue
+        else:
+            print('We don\'t currently have an order under that phone number. Let\'s start over.')
+            continue
+
     if in_value == 'cancel':
         print('Sorry to see you go! Please come again!')
         canceled_order = True
@@ -172,5 +192,5 @@ while orderIncomplete:
 
 
 
-if not canceled_order:
+if not canceled_order and not exit:
     print("Thanks for your order! It will be ready in {} minutes.".format(order_x.wait_time))
