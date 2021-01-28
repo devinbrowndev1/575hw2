@@ -9,7 +9,9 @@
 \hline
 Slot & Question \\\hline
 ``num\_pizzas" & ``How many pizzas would you like?"\\\hline
+``specify\_pizza" & ``Which pizza would you like to make changes to?"\\\hline
 ``add\_pizza" & ``What specialty pizza would you like?"\\\hline
+``remove\_pizza" & ``Which pizza would you like to remove from your order?"\\\hline
 ``copy\_pizza" & ``Do you want the same toppings, size, and crust on another pizza?"\\\hline
 ``add\_toppings" & ``What toppings would you like on that pizza?"\\\hline
 ``remove\_toppings" & ``Which toppings do you want to remove on that pizza?"\\\hline
@@ -24,5 +26,10 @@ Slot & Question \\\hline
 ``past\_customer" & ``Would you like to reorder your preferred pizza?"\\\hline
 ``order\_check" & ``Would you like to see your estimated wait time?"\\\hline
 \end{tabular}
+
+\vspace{.5cm}
+
+The flow of this system would be similar to the frame we implemented in Q4, but would have a few extra slots to handle information like the number of pizzas, toppings to add or remove, whether or not they want multiple of the same pizza, and which pizza within their order they're providing information about. The system would also be able to understand and set any of this information out-of-order but the questions above are what would be asked if the user didn't fully specify part of their order, or if they made an intention known (e.g. I want to remove toppings from this pizza) without giving specific enough information for the system to execute right away (which would prompt the ``Which toppings do you want to remove?" question). 
+
 
 \end{document}
