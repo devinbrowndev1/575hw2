@@ -129,7 +129,7 @@ while orderIncomplete:
     in_value = input().strip()
 
     #THIS IF BLOCK IS FOR CHECKING ORDER STATUS
-    #IT ONLY WORKS ON THE 
+    #IT ONLY WORKS ON THE SAVED ACCOUNT
     if in_value == 'status':
         print('Can I get a phone number for the account?')
         temp = input().strip()
@@ -163,7 +163,6 @@ while orderIncomplete:
         except:
             x=1
 
-
         if info_type == 'reorder':
             reorder = True
             print("What is your phone number for the account?")
@@ -186,11 +185,6 @@ while orderIncomplete:
             pizza_x.set_pizza_info(info_type, value)
         else:
             order_x.set_order_info(info_type, value)
-
-
-
-
-
 
 if not canceled_order and not exit:
     print("Thanks for your order! It will be ready in {} minutes.".format(order_x.wait_time))
