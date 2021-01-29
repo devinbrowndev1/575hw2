@@ -39,6 +39,6 @@ class NLGDefault:
                 return "About {} minutes".format(info["order_wait"])
         elif (dialogAct.DialogActType == DialogActTypes.GOODBYE):
             if dialogAct.info_type == "successful":
-                return "Thanks for your order! Have a nice day."
+                return "Thanks for your order! Have a nice day. (Type Quit to exit)"
             else:
-                return "Alright, goodbye."
+                return "Alright, goodbye. (Type Quit to exit)"
