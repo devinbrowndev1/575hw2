@@ -54,7 +54,6 @@ class FrameDMSimple:
             self.DialogFrame.time = True
         elif newSemanticFrame.Intent == "CONFIRM":
             self.DialogFrame.slots["confirmed"] = True
-            self.DialogFrame.calc_pizza_cost()
             #for slot in self.DialogFrame.check_info:
             #    self.DialogFrame[slot] = self.DialogFrame.check_info[slot]
         elif newSemanticFrame.Intent == "DENY":
@@ -147,6 +146,7 @@ class FrameDMSimple:
         else:
             dialogAct.DialogActType = DialogActTypes.REQUEST
             dialogAct.info_type = "confirmed"
+            self.DialogFrame.calc_pizza_cost()
             dialogAct.content = self.DialogFrame
 
             self.DialogFrame.prev_Dialog_Act = dialogAct
