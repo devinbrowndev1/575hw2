@@ -14,6 +14,8 @@ class NLUDefault:
 
     def parse(self, inputStr):
         self.SemanticFrame.Domain = "pizza"
+        self.SemanticFrame.Intent = None
+        self.SemanticFrame.Slots = {}
 
         flavors = self.oflavors
         sizes = self.osizes
@@ -21,6 +23,7 @@ class NLUDefault:
         names = self.onames
         addresses = self.oaddresses
 
+        # Pizza info
         for flavor in flavors:
             if flavor in inputStr.lower():
                 self.SemanticFrame.Intent = "INFORM"
@@ -34,6 +37,8 @@ class NLUDefault:
             if crust in inputStr.lower() or check_format in inputStr.lower():
                 self.SemanticFrame.Intent = "INFORM"
                 self.SemanticFrame.Slots["pizza_crust"] = crust
+
+        # Order info
         for name in names:
             if name in inputStr or name.lower() in inputStr:
                 self.SemanticFrame.Intent = "INFORM"
@@ -51,13 +56,27 @@ class NLUDefault:
             self.SemanticFrame.Intent = "INFORM"
             self.SemanticFrame.Slots["order_delivery"] = "pick-up"
 
-        if "reorder" in inputStr.lower():
-            self.SemanticFrame.Intent = "REORDER"
-
         if "1234567890" in inputStr:
             self.SemanticFrame.Intent = "INFORM"
             self.SemanticFrame.Slots["order_phone"] = "1234567890"
+        elif "0987654321" in inputStr:
+            self.SemanticFrame.Intent = "INFORM"
+            self.SemanticFrame.Slots["order_phone"] = "0987654321"
 
+
+        # Dialog flow control/User-initiative requests
+        if "reorder" in inputStr.lower():
+            self.SemanticFrame.Intent = "REORDER"
+        elif "start-over" in inputStr.lower() or "startover" in inputStr.lower():
+            self.SemanticFrame.Intent = "START-OVER"
+        elif "cancel" in inputStr.lower():
+            self.SemanticFrame.Intent = "CANCEL"
+        elif "repeat" in inputStr.lower():
+            self.SemanticFrame.Intent = "REPEAT"
+        elif "check" in inputStr.lower():
+            self.SemanticFrame.Intent = "CHECK_ORDER"
+
+        # Confirm/deny
         if "yes" == inputStr or "Yes" == inputStr:
             self.SemanticFrame.Intent = "CONFIRM"
         elif "no" == inputStr or "No" == inputStr:

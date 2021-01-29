@@ -8,8 +8,11 @@ class NLGDefault:
         self.Name = "NLGDefault"
 
     def generate(self, dialogAct):
+        if dialogAct == None:
+            return "Welcome to the Pizza Place. What can I get you?"
+
         if (dialogAct.DialogActType == DialogActTypes.HELLO):
-            return "Hello, how's it going?"
+            return "Welcome to the Pizza Place. What can I get you?"
         elif (dialogAct.DialogActType == DialogActTypes.REQUEST):
             if dialogAct.info_type == "pizza_type":
                 return "What type of pizza would you like?"
@@ -27,6 +30,15 @@ class NLGDefault:
                 return "Would you like pickup or delivery?"
             elif dialogAct.info_type == "confirmed":
                 info = dialogAct.content.slots
-                return "I have a {} {} pizza with {} crust. Does that look right?".format(info["pizza_size"],info["pizza_type"],info["pizza_crust"])
+                return "I have a {} {} pizza with {} crust for {}. Does that look right?".format(info["pizza_size"],info["pizza_type"],info["pizza_crust"],info["order_name"])
+            elif dialogAct.info_type == "correction":
+                return "I'm sorry, tell me what you'd like instead."
+        elif dialogAct.DialogActType == DialogActTypes.INFORM:
+            if dialogAct.info_type == "wait_time":
+                info = dialogAct.content.slots
+                return "About {} minutes".format(info["order_wait"])
         elif (dialogAct.DialogActType == DialogActTypes.GOODBYE):
-            return "Thanks for your order! Have a nice day."
+            if dialogAct.info_type == "successful":
+                return "Thanks for your order! Have a nice day."
+            else:
+                return "Alright, goodbye."
