@@ -30,7 +30,7 @@ class NLGDefault:
                 return "Would you like pickup or delivery?"
             elif dialogAct.info_type == "confirmed":
                 info = dialogAct.content.slots
-                return "I have a {} {} pizza with {} crust for {}. Does that look right?".format(info["pizza_size"],info["pizza_type"],info["pizza_crust"],info["order_name"])
+                return "I have a {} {} pizza with {} crust for {}. It'll be ${} .Does that look right?".format(info["pizza_size"],info["pizza_type"],info["pizza_crust"],info["order_name"],info["pizza_cost"])
             elif dialogAct.info_type == "correction":
                 return "I'm sorry, tell me what you'd like instead."
         elif dialogAct.DialogActType == DialogActTypes.INFORM:
